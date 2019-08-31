@@ -17,14 +17,6 @@ for (let i = 0; i < canvases.length; i++) {
         square.id(`canvas-${i}-${j}`);
         p.noLoop();
 
-        cellController.className = "cell-controller";
-        cellControllerText.className = "text";
-        cellControllerText.innerHTML = "Hola";
-        cellController.appendChild(cellControllerText);
-        document
-          .getElementById(`canvas-container-${i}-${j}`)
-          .appendChild(cellController);
-
         p.background(235);
         p.stroke("rgba(0, 0, 0, .4)");
         p.noFill();
@@ -32,11 +24,6 @@ for (let i = 0; i < canvases.length; i++) {
 
       p.draw = () => {
         let attractor = getAttractorPoints(p);
-        cellControllerText.innerHTML = `a = ${attractor.a.toFixed(
-          8
-        )};<br>b = ${attractor.b.toFixed(8)};<br>c = ${attractor.c.toFixed(
-          8
-        )};<br>d = ${attractor.d.toFixed(8)};`;
         for (let i = 0; i < attractor.points.length; i++) {
           p.circle(
             CELL_SIZE / 2 + (CELL_SIZE / 2) * attractor.points[i].x,
@@ -45,11 +32,6 @@ for (let i = 0; i < canvases.length; i++) {
           );
         }
       };
-
-      p.test = `
-        console.log("aaah, troliau we, soy el yoyos xd", ${i}, ${j});
-        ${p.background.toString()}
-      `;
 
       p.mouseClicked = () => {
         if (
@@ -63,90 +45,6 @@ for (let i = 0; i < canvases.length; i++) {
           copyStringToClipboard(
             `let a = ${attractor.a}, b = ${attractor.b}, c = ${attractor.c}, d = ${attractor.d};`
           );
-          cellControllerText.innerHTML = `
-        <div class = "attractor-variables">
-        <div class = "attractor-variable-controller">
-          <div class = "attractor-variable">
-          a =
-          </div>
-          <div class = "value-controller">
-
-          <div class = "current-value">
-          ${attractor.a<0?attractor.a.toFixed(7):attractor.a.toFixed(8)}
-            </div>
-            <div class = "decrease-value">
-              <i class="fas fa-arrow-down button"></i>
-            </div>
-            <div class = "increase-value">
-              <i class="fas fa-arrow-up button"></i>
-            </div>
-            
-          </div>
-        </div>
-
-        <div class = "attractor-variable-controller">
-        <div class = "attractor-variable">
-        b =
-        </div>
-        <div class = "value-controller">
-
-          <div class = "current-value">
-          ${attractor.b<0?attractor.b.toFixed(7):attractor.b.toFixed(8)}
-          </div>
-          <div class = "decrease-value">
-            <i class="fas fa-arrow-down button"></i>
-          </div>
-          <div class = "increase-value">
-            <i class="fas fa-arrow-up button"></i>
-          </div>
-          
-        </div>
-      </div>
-      <div class = "attractor-variable-controller">
-      <div class = "attractor-variable">
-      c =
-      </div>
-      <div class = "value-controller">
-
-        <div class = "current-value">
-        ${attractor.c<0?attractor.c.toFixed(7):attractor.c.toFixed(8)}
-        </div>
-        <div class = "decrease-value">
-          <i class="fas fa-arrow-down button"></i>
-        </div>
-        <div class = "increase-value">
-          <i class="fas fa-arrow-up button"></i>
-        </div>
-        
-      </div>
-    </div>
-    <div class = "attractor-variable-controller">
-    <div class = "attractor-variable">
-    d =
-    </div>
-    <div class = "value-controller">
-
-      <div class = "current-value">
-      ${attractor.d<0?attractor.d.toFixed(7):attractor.d.toFixed(8)}
-      </div>
-      <div class = "decrease-value">
-        <i class="fas fa-arrow-down button"></i>
-      </div>
-      <div class = "increase-value">
-        <i class="fas fa-arrow-up button"></i>
-      </div>
-      
-    </div>
-  </div>
-</div>
-          <div class="buttons">
-              <i class="fas fa-unlock fa-lg button"></i>
-              <i class="far fa-copy fa-lg button"></i>
-              <i class="fas fa-redo-alt fa-lg button"></i>
-              <i class="fas fa-plus fa-lg button"></i>
-          </div >
-
-          `;
           for (let i = 0; i < attractor.points.length; i++) {
             p.circle(
               CELL_SIZE / 2 + (CELL_SIZE / 2) * attractor.points[i].x,
