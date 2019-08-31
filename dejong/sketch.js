@@ -4,70 +4,58 @@ const ATTRACTOR_POINTS = parseInt(query.points);
 let cellsMeta = {};
 let cells = [];
 
-for (let i = 0; i < canvases.length; i++) {
-  for (let j = 0; j < canvases[i].length; j++) {
-    let attractorCanvas = function(p) {
-      let cellController = document.createElement("div");
-      let cellControllerText = document.createElement("div");
+function drawCanvases() {
+  for (let i = 0; i < canvases.length; i++) {
+    for (let j = 0; j < canvases[i].length; j++) {
+      let canvasElement = document.getElementById(`canvas-container-${i}-${j}`);
+      if (canvasElement.getAttribute("isLocked") === "true") continue;
+      if (canvasElement.lastChild.tagName === "CANVAS") {
+        canvasElement.removeChild(canvasElement.lastChild);
+      }
 
-      p.setup = () => {
-        let square = p.createCanvas(CELL_SIZE, CELL_SIZE);
+      let attractorCanvas = function(p) {
+        let canvasElement = document.getElementById(
+          `canvas-container-${i}-${j}`
+        );
+        if (canvasElement.getAttribute("isLocked") === "true") return;
+        let values;
+        p.setup = () => {
+          values = canvasElement.getAttribute("attractor-values").split(",");
+          console.log(values);
+          let square = p.createCanvas(CELL_SIZE, CELL_SIZE);
 
-        square.parent(`canvas-container-${i}-${j}`);
-        square.id(`canvas-${i}-${j}`);
-        p.noLoop();
+          square.parent(canvasElement);
+          square.id(`canvas-${i}-${j}`);
+          p.noLoop();
 
-        p.background(235);
-        p.stroke("rgba(0, 0, 0, .4)");
-        p.noFill();
-      };
-
-      p.draw = () => {
-        let attractor = getAttractorPoints(p);
-        for (let i = 0; i < attractor.points.length; i++) {
-          p.circle(
-            CELL_SIZE / 2 + (CELL_SIZE / 2) * attractor.points[i].x,
-            CELL_SIZE / 2 + (CELL_SIZE / 2) * attractor.points[i].y,
-            0.2
-          );
-        }
-      };
-
-      p.mouseClicked = () => {
-        if (
-          p.mouseX > 0 &&
-          p.mouseX < CELL_SIZE &&
-          p.mouseY > 0 &&
-          p.mouseY < CELL_SIZE
-        ) {
           p.background(235);
-          let attractor = getAttractorPoints(p);
-          copyStringToClipboard(
-            `let a = ${attractor.a}, b = ${attractor.b}, c = ${attractor.c}, d = ${attractor.d};`
-          );
+          p.stroke("rgba(0, 0, 0, .4)");
+          p.noFill();
+        };
+
+        p.draw = () => {
+          let attractor = getAttractorPoints(p, values);
           for (let i = 0; i < attractor.points.length; i++) {
-            p.circle(
-              CELL_SIZE / 2 + (CELL_SIZE / 2) * attractor.points[i].x,
-              CELL_SIZE / 2 + (CELL_SIZE / 2) * attractor.points[i].y,
-              0.2
+            p.point(
+              p.round(CELL_SIZE / 2 + (CELL_SIZE / 2) * attractor.points[i].x),
+              p.round(CELL_SIZE / 2 + (CELL_SIZE / 2) * attractor.points[i].y)
             );
           }
-        }
+        };
       };
-    };
 
-    new p5(attractorCanvas, `canvas-container-${i}-${j}`);
+      new p5(attractorCanvas, `canvas-container-${i}-${j}`);
+    }
   }
 }
-
-function getAttractorPoints(p) {
+function getAttractorPoints(p, values) {
   let x = 0;
   let y = 0;
 
-  let a = p.random(-2, 2);
-  let b = p.random(-2, 2);
-  let c = p.random(-2, 2);
-  let d = p.random(-2, 2);
+  let a = values[0];
+  let b = values[1];
+  let c = values[2];
+  let d = values[3];
 
   let points = [];
   for (let i = 0; i < ATTRACTOR_POINTS; i++) {
@@ -105,3 +93,5 @@ function copyStringToClipboard(str) {
   // Remove temporary element
   document.body.removeChild(el);
 }
+
+drawCanvases();
