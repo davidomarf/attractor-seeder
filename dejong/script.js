@@ -53,8 +53,6 @@ for (let i = 0; i < canvasBuilder.rows; i++) {
     cellDiv.height = canvasSize;
     cellDiv.className = "canvas-container";
 
-
-
     div.appendChild(cellDiv);
 
     canvases[i].push(cellDiv);

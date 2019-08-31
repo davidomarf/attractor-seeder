@@ -60,45 +60,92 @@ for (let i = 0; i < canvases.length; i++) {
         ) {
           p.background(235);
           let attractor = getAttractorPoints(p);
-          copyStringToClipboard(`let a = ${attractor.a}, b = ${attractor.b}, c = ${attractor.c}, d = ${attractor.d};`)
+          copyStringToClipboard(
+            `let a = ${attractor.a}, b = ${attractor.b}, c = ${attractor.c}, d = ${attractor.d};`
+          );
           cellControllerText.innerHTML = `
-          <form class="form-inline" action="/action_page.php">
+        <div class = "attractor-variables">
+        <div class = "attractor-variable-controller">
+          <div class = "attractor-variable">
+          a =
+          </div>
+          <div class = "value-controller">
 
-          <div class = "attractor-value-form" >
-            <label for="a">a= </label>
-            <input name="a"  type="number" step="0.05" value = ${attractor.a.toFixed(
-              8
-            )} />
-         </div>
-
-         <div class = "attractor-value-form" >
-            <label for="b">b= </label>
-            <input name="b"  type="number" step="0.05" value = ${attractor.b.toFixed(
-              8
-            )} />
-         </div>
-
-         <div class = "attractor-value-form" >
-            <label for="c">c= </label>
-            <input name="c" type="number" step="0.05" value = ${attractor.c.toFixed(
-              8
-            )} />
-         </div>
-
-         <div class = "attractor-value-form" >
-            <label for="c">c= </label>
-            <input name="c"  type="number" step="0.05" value = ${attractor.d.toFixed(
-              8
-            )} />
-         </div>
-            
-        </form>
-
-            <i class="far fa-copy"></i>
-            <i class="fas fa-redo-alt"></i>
-            <div onclick = '${p.test}'>
-              <i class="fas fa-plus"></i>
+          <div class = "current-value">
+          ${attractor.a<0?attractor.a.toFixed(7):attractor.a.toFixed(8)}
             </div>
+            <div class = "decrease-value">
+              <i class="fas fa-arrow-down button"></i>
+            </div>
+            <div class = "increase-value">
+              <i class="fas fa-arrow-up button"></i>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class = "attractor-variable-controller">
+        <div class = "attractor-variable">
+        b =
+        </div>
+        <div class = "value-controller">
+
+          <div class = "current-value">
+          ${attractor.b<0?attractor.b.toFixed(7):attractor.b.toFixed(8)}
+          </div>
+          <div class = "decrease-value">
+            <i class="fas fa-arrow-down button"></i>
+          </div>
+          <div class = "increase-value">
+            <i class="fas fa-arrow-up button"></i>
+          </div>
+          
+        </div>
+      </div>
+      <div class = "attractor-variable-controller">
+      <div class = "attractor-variable">
+      c =
+      </div>
+      <div class = "value-controller">
+
+        <div class = "current-value">
+        ${attractor.c<0?attractor.c.toFixed(7):attractor.c.toFixed(8)}
+        </div>
+        <div class = "decrease-value">
+          <i class="fas fa-arrow-down button"></i>
+        </div>
+        <div class = "increase-value">
+          <i class="fas fa-arrow-up button"></i>
+        </div>
+        
+      </div>
+    </div>
+    <div class = "attractor-variable-controller">
+    <div class = "attractor-variable">
+    d =
+    </div>
+    <div class = "value-controller">
+
+      <div class = "current-value">
+      ${attractor.d<0?attractor.d.toFixed(7):attractor.d.toFixed(8)}
+      </div>
+      <div class = "decrease-value">
+        <i class="fas fa-arrow-down button"></i>
+      </div>
+      <div class = "increase-value">
+        <i class="fas fa-arrow-up button"></i>
+      </div>
+      
+    </div>
+  </div>
+</div>
+          <div class="buttons">
+              <i class="fas fa-unlock button"></i>
+              <i class="far fa-copy fa-lg button"></i>
+              <i class="fas fa-redo-alt fa-lg button"></i>
+              <i class="fas fa-plus fa-lg button"></i>
+          </div >
+
           `;
           for (let i = 0; i < attractor.points.length; i++) {
             p.circle(
@@ -119,15 +166,10 @@ function getAttractorPoints(p) {
   let x = 0;
   let y = 0;
 
-  // let a = p.random(-2, 2);
-  // let b = p.random(-2, 2);
-  // let c = p.random(-2, 2);
-  // let d = p.random(-2, 2);
-
-  let a = p.randomGaussian(-1.8695949396217424, .2),
-    b = p.randomGaussian(-1.1051195643572633, .2),
-    c = p.randomGaussian(-1.644601748063276, .2),
-    d = p.randomGaussian(-1.2125787183291807, .2);
+  let a = p.random(-2, 2);
+  let b = p.random(-2, 2);
+  let c = p.random(-2, 2);
+  let d = p.random(-2, 2);
 
   let points = [];
   for (let i = 0; i < ATTRACTOR_POINTS; i++) {
@@ -149,20 +191,19 @@ function getAttractorPoints(p) {
   return { points: points, a: a, b: b, c: c, d: d };
 }
 
-
-function copyStringToClipboard (str) {
+function copyStringToClipboard(str) {
   // Create new element
-  var el = document.createElement('textarea');
+  var el = document.createElement("textarea");
   // Set value (string to be copied)
   el.value = str;
   // Set non-editable to avoid focus and move outside of view
-  el.setAttribute('readonly', '');
-  el.style = {position: 'absolute', left: '-9999px'};
+  el.setAttribute("readonly", "");
+  el.style = { position: "absolute", left: "-9999px" };
   document.body.appendChild(el);
   // Select text inside element
   el.select();
   // Copy text to clipboard
-  document.execCommand('copy');
+  document.execCommand("copy");
   // Remove temporary element
   document.body.removeChild(el);
 }
