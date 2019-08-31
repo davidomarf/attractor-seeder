@@ -140,7 +140,7 @@ for (let i = 0; i < canvases.length; i++) {
   </div>
 </div>
           <div class="buttons">
-              <i class="fas fa-unlock button"></i>
+              <i class="fas fa-unlock fa-lg button"></i>
               <i class="far fa-copy fa-lg button"></i>
               <i class="fas fa-redo-alt fa-lg button"></i>
               <i class="fas fa-plus fa-lg button"></i>
