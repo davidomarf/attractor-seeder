@@ -41,6 +41,24 @@ let canvasBuilder = getCanvasBuilder(query);
 let canvasSize = query.size;
 let canvases = [];
 
+let CLIFFORD = {
+  next: (a, b, c, d, x, y) => {
+    let xt = Math.sin(a * y) + c * Math.cos(a * x);
+    let yt = Math.sin(b * x) + d * Math.cos(b * y);
+    return { x: xt, y: yt };
+  }
+};
+
+let DEJONG = {
+  next: (a, b, c, d, x, y) => {
+    let xt = Math.sin(a * y) - Math.cos(b * x);
+    let yt = Math.sin(c * x) - Math.cos(d * y);
+    return { x: xt, y: yt };
+  }
+};
+
+let attractorEquation = query.equations.toLowerCase() === "clifford" ? CLIFFORD : DEJONG;
+
 for (let i = 0; i < canvasBuilder.rows; i++) {
   canvases.push([]);
   let div = document.createElement("div");
@@ -197,15 +215,12 @@ document.addEventListener("keypress", function onEvent(event) {
           ${values[3]}
         `
         );
-        console.log(canvases[i][j])
-        canvases[i][j].querySelector("#copy-icon").setAttribute("onClick",
-        `copyValues(${[
-          values[0],
-          values[1],
-          values[2],
-          values[3]
-        ]})`);
-        console.log(canvases[i][j])
+        canvases[i][j]
+          .querySelector("#copy-icon")
+          .setAttribute(
+            "onClick",
+            `copyValues(${[values[0], values[1], values[2], values[3]]})`
+          );
         unlockedCanvases.push(canvases[i][j]);
       }
     }

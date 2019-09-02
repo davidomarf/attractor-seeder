@@ -57,14 +57,16 @@ function getAttractorPoints(p, values) {
   let d = values[3];
 
   let points = [];
+
   for (let i = 0; i < ATTRACTOR_POINTS; i++) {
     // let xt = sin(a * y) + c * cos(a * x);
     // let yt = sin(b * x) + d * cos(b * y);
-    let xt = p.sin(a * y) - p.cos(b * x);
-    let yt = p.sin(c * x) - p.cos(d * y);
-    x = xt;
-    y = yt;
-    points.push({ x: xt, y: yt });
+    // let xt = p.sin(a * y) - p.cos(b * x);
+    // let yt = p.sin(c * x) - p.cos(d * y);
+    let next = attractorEquation.next(a, b, c, d, x, y);
+    x = next.x;
+    y = next.y;
+    points.push({ x: x, y: y});
   }
 
   let maxValue = 2;

@@ -9,8 +9,63 @@
       looks like. You can easily copy those values afterwards.
       <br />
       <br />
-      You can generate <a href="clifford/config">Clifford</a> or
-      <a href="dejong/config">De Jong</a> attractors.
+      You can generate
+      <a
+        href="http://paulbourke.net/fractals/clifford/"
+        target="_blank"
+        rel="noreferrer nofollow"
+        >Clifford</a
+      >
+      or
+      <a
+        href="http://paulbourke.net/fractals/peterdejong/"
+        target="_blank"
+        rel="noreferrer nofollow"
+        >De Jong</a
+      >
+      attractors.
     </p>
+
+    <form action="./grid/" id="attractor-config">
+      Attractors size (px):
+      <input type="number" name="size" value="300" /><br />
+      Points per attractor:<input
+        type="number"
+        name="points"
+        value="3000"
+      /><br />
+      Equations:
+      <select name="equations" id="attractor-equation">
+        <option value="Clifford">Clifford</option>
+        <option value="DeJong">De Jong</option>
+      </select>
+
+      <p id="attractor-equation-definition">
+        x<sub>n+1</sub> = sin(a * y<sub>n</sub>) + c * cos(a * x<sub>n</sub>)<br />
+        y<sub>n+1</sub> = sin(b * x<sub>n</sub>) + d * cos(b * y<sub>n</sub>)
+      </p>
+
+      <input type="submit" value="Generate" />
+    </form>
   </body>
+
+  <script>
+    let equation = document.getElementById("attractor-equation");
+    equation.addEventListener("change", () => {
+      let equationDefinition = document.getElementById(
+        "attractor-equation-definition"
+      );
+      if (equation.value === "Clifford") {
+        equationDefinition.innerHTML = `
+              x<sub>n+1</sub> = sin(a * y<sub>n</sub>) + c * cos(a * x<sub>n</sub>)<br/>
+              y<sub>n+1</sub> = sin(b * x<sub>n</sub>) + d * cos(b * y<sub>n</sub>)`;
+      } else {
+        equationDefinition.innerHTML = `
+              x<sub>n+1</sub> = sin(a * y<sub>n</sub>) - cos(b * x<sub>n</sub>)<br/>
+              y<sub>n+1</sub> = sin(c * x<sub>n</sub>) - cos(d * y<sub>n</sub>) 
+              `;
+      }
+    });
+    document.addEventListener();
+  </script>
 </html>
