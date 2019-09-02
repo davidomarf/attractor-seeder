@@ -158,7 +158,9 @@ for (let i = 0; i < canvasBuilder.rows; i++) {
       </div>
       </div>
       <div class="buttons">
-      <i id="locked-icon" class="fas fa-unlock fa-lg button" onClick="blockCanvas('canvas-container-${i}-${j}')"></i>
+      <span id="locked-icon-container">
+        <i id="locked-icon" class="fas fa-unlock fa-lg button" onClick="blockCanvas('canvas-container-${i}-${j}')"></i>
+      </span>
       <i id="copy-icon" class="far fa-copy fa-lg button" onClick="copyValues(${[
         a,
         b,
@@ -170,6 +172,21 @@ for (let i = 0; i < canvasBuilder.rows; i++) {
       </div>
 `;
     div.appendChild(cellDiv);
+    let lockedContainer = cellControllerText.querySelector("#locked-icon-container")
+    lockedContainer.addEventListener("click", ()=>{
+      let iconItem = lockedContainer.childNodes[1];
+      if(iconItem.classList.contains("fa-unlock")){
+        iconItem.classList.remove("fa-unlock");
+        iconItem.classList.add("fa-lock");
+        iconItem.style.color = "#c54444";
+      } else {
+        iconItem.classList.remove("fa-lock");
+        iconItem.classList.add("fa-unlock")
+        iconItem.style.color = "white";
+      }
+      console.log(lockedContainer)
+      console.log(lockedContainer.childNodes[1])
+    })
 
     canvases[i].push(cellDiv);
   }
