@@ -141,7 +141,7 @@ for (let i = 0; i < canvasBuilder.rows; i++) {
       </div>
       <div class="buttons">
       <i id="locked-icon" class="fas fa-unlock fa-lg button" onClick="blockCanvas('canvas-container-${i}-${j}')"></i>
-      <i class="far fa-copy fa-lg button" onClick="copyValues(${[
+      <i id="copy-icon" class="far fa-copy fa-lg button" onClick="copyValues(${[
         a,
         b,
         c,
@@ -182,19 +182,33 @@ document.addEventListener("keypress", function onEvent(event) {
     for (let i = 0; i < canvases.length; i++) {
       for (let j = 0; j < canvases[i].length; j++) {
         if (canvases[i][j].getAttribute("isLocked") === "true") continue;
+        let values = [
+          Math.random() * 4 - 2,
+          Math.random() * 4 - 2,
+          Math.random() * 4 - 2,
+          Math.random() * 4 - 2
+        ];
         canvases[i][j].setAttribute(
           "attractor-values",
           `
-          ${Math.random() * 4 - 2},
-          ${Math.random() * 4 - 2},
-          ${Math.random() * 4 - 2},
-          ${Math.random() * 4 - 2}
+          ${values[0]},
+          ${values[1]},
+          ${values[2]},
+          ${values[3]}
         `
         );
+        console.log(canvases[i][j])
+        canvases[i][j].querySelector("#copy-icon").setAttribute("onClick",
+        `copyValues(${[
+          values[0],
+          values[1],
+          values[2],
+          values[3]
+        ]})`);
+        console.log(canvases[i][j])
         unlockedCanvases.push(canvases[i][j]);
       }
     }
-    console.log(unlockedCanvases);
     drawCanvases();
   }
 });

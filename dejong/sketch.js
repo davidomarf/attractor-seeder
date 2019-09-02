@@ -21,7 +21,6 @@ function drawCanvases() {
         let values;
         p.setup = () => {
           values = canvasElement.getAttribute("attractor-values").split(",");
-          console.log(values);
           let square = p.createCanvas(CELL_SIZE, CELL_SIZE);
 
           square.parent(canvasElement);
