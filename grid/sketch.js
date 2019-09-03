@@ -68,7 +68,6 @@ function getAttractorPoints(p, values) {
   if(query.equations.toLowerCase() == "clifford"){
     maxValue = 3;
   }
-  console.log(maxValue)
   points = points.map(e => {
     return { x: e.x / maxValue, y: e.y / maxValue };
   });
