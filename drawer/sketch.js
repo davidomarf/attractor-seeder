@@ -18,6 +18,25 @@ function getDefaultsForEmptyFields(query) {
 const WIDTH = 2048;
 const HEIGHT = 2048;
 
+// Specify the equations for Clifford and De Jong attractors
+const CLIFFORD = (a, b, c, d, x, y) => {
+  return {
+    x: Math.sin(a * y) + c * Math.cos(a * x),
+    y: Math.sin(b * x) + d * Math.cos(b * y)
+  };
+};
+
+const DEJONG = (a, b, c, d, x, y) => {
+  return {
+    x: Math.sin(a * y) - Math.cos(b * x),
+    y: Math.sin(c * x) - Math.cos(d * y)
+  };
+};
+
+// Set the equations to use using the URL params
+let attractorEquation =
+  query.equations.toLowerCase() === "clifford" ? CLIFFORD : DEJONG;
+
 function setup() {
   createCanvas(WIDTH, HEIGHT);
   noFill();
@@ -44,22 +63,20 @@ function draw() {
 
   for (let j = 0; j < 1000; j++) {
     for (let i = 0; i < pointsPerPercentage; i++) {
-      let xt = sin(a * y) + c * cos(a * x);
-      let yt = sin(b * x) + d * cos(b * y);
-      x = xt;
-      y = yt;
+      let next = attractorEquation(a, b, c, d, x, y);
+      x = next.x;
+      y = next.y;
       circle(
         WIDTH / 2 + (WIDTH / 2) * (x / maxValue),
         HEIGHT / 2 + (HEIGHT / 2) * (y / maxValue),
-        .5
+        0.5
       );
     }
-    console.log(j/10 + "%");
+    console.log(j / 10 + "%");
   }
 
   console.log("finished");
   console.log(`a = ${a},\nb = ${b},\nc = ${c},\nd = ${d};\n`);
-
 }
 
 /**
