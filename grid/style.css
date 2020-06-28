@@ -1,9 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:300&display=swap");
-@import url("https://fonts.googleapis.com/css?family=PT+Mono&display=swap");
-
 html {
   height: 100%;
-  font-family: "Montserrat", sans-serif;
 }
 
 body {
@@ -29,6 +25,13 @@ body {
   width: 20%;
   max-width: 300px;
   padding: 0 1em;
+  font-family: "Fira Code";
+}
+
+#instructions code {
+  padding: 0.5em;
+  background: #eee;
+  border-radius: 5px;
 }
 
 .canvas-row {
@@ -105,6 +108,7 @@ input {
   display: flex;
   justify-content: center;
   margin: 12px;
+  font-family: "Fira Code";
 }
 
 .main-container {

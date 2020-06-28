@@ -265,7 +265,6 @@ function getCanvasBuilder(info, container) {
   canvasBuilder.rowsMargin = Math.round(
     (container.clientHeight % canvasSize) / (canvasBuilder.rows + 1)
   );
-  console.log(canvasBuilder);
   return canvasBuilder;
 }
 

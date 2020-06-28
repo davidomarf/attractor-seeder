@@ -38,9 +38,6 @@ function getCanvasBuilder(info) {
 let query = getQueryParams(document.location.search);
 let canvasBuilder = getCanvasBuilder(query);
 
-console.log(query);
-console.log(canvasBuilder);
-
 let canvasSize = query.size;
 let canvases = [];
 
