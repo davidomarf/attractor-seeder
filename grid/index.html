@@ -21,25 +21,43 @@
       content="Mass generate attractors and select your favorite ones to breed them!"
     />
 
-    <link rel="stylesheet" href="../style.css" />
-    <script src="https://kit.fontawesome.com/2aab0f2942.js"></script>
-    <script
-      language="javascript"
-      type="text/javascript"
-      src="./script.js"
-      defer
-    ></script>
-    <script
-      language="javascript"
-      type="text/javascript"
-      src="../lib/p5.js"
-    ></script>
-    <script
-      language="javascript"
-      type="text/javascript"
-      src="./sketch.js"
-      defer
-    ></script>
+    <link rel="stylesheet" href="../grid-style.css" />
   </head>
-  <body style="margin: 0;"></body>
+  <body style="margin: 0;">
+    <div id="instructions">
+      <h2>
+        Attractor Grid
+      </h2>
+      <hr />
+      <p>
+        Generate many values in low-res for quick exploration.
+      </p>
+      <p>Press <code>SPACEBAR</code> to re-generate every attractor.</p>
+      <p>
+        Hover over an attractor and click <span class="fas fa-unlock"></span> to
+        <code>lock</code> an attractor and protect it from re-drawing. Press
+        <span class="fas fa-lock"></span>
+        to unlock it again.
+      </p>
+    </div>
+    <div id="canvases-container"></div>
+  </body>
+  <script src="https://kit.fontawesome.com/2aab0f2942.js"></script>
+  <script
+    language="javascript"
+    type="text/javascript"
+    src="./script.js"
+    defer
+  ></script>
+  <script
+    language="javascript"
+    type="text/javascript"
+    src="../lib/p5.js"
+  ></script>
+  <script
+    language="javascript"
+    type="text/javascript"
+    src="./sketch.js"
+    defer
+  ></script>
 </html>

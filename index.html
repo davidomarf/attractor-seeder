@@ -11,61 +11,71 @@
       name="description"
       content="Mass generate attractors and select your favorite ones to breed them!"
     />
+    <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
-    <h1>Attractor Seeder</h1>
-    <p>
-      This tool will let you generate several values combinations for the
-      variables that control an attractor, and immediatly see what the attractor
-      looks like. You can easily copy those values afterwards.
-      <br />
-      <br />
-      You can generate
-      <a
-        href="http://paulbourke.net/fractals/clifford/"
-        target="_blank"
-        rel="noreferrer nofollow"
-        >Clifford</a
-      >
-      or
-      <a
-        href="http://paulbourke.net/fractals/peterdejong/"
-        target="_blank"
-        rel="noreferrer nofollow"
-        >De Jong</a
-      >
-      attractors.
-    </p>
-
-    <form action="./grid/" id="attractor-config">
-      Attractors size (px):
-      <input type="number" name="size" value="300" /><br />
-      Points per attractor:<input
-        type="number"
-        name="points"
-        value="7000"
-      /><br />
-      Equations:
-      <select name="equations" id="attractor-equation">
-        <option value="Clifford">Clifford</option>
-        <option value="DeJong">De Jong</option>
-      </select>
-
+    <div class="main-container">
+      <h1>Attractor Seeder</h1>
       <p>
-        <span id="attractor-equation-definition">
-          x<sub>n+1</sub> = sin(a * y<sub>n</sub>) + c * cos(a *
-          x<sub>n</sub>)<br />
-          y<sub>n+1</sub> = sin(b * x<sub>n</sub>) + d * cos(b * y<sub>n</sub>)
-        </span>
+        This tool will let you generate several values combinations for the
+        variables that control an attractor, and immediatly see what the
+        attractor looks like. You can easily copy those values afterwards.
         <br />
         <br />
-        <code>a</code>, <code>b</code>, <code>c</code>, and
-        <code>d</code>
-        will be generated randomly with values between -2 and 2.
+        You can generate
+        <a
+          href="http://paulbourke.net/fractals/clifford/"
+          target="_blank"
+          rel="noreferrer nofollow"
+          >Clifford</a
+        >
+        or
+        <a
+          href="http://paulbourke.net/fractals/peterdejong/"
+          target="_blank"
+          rel="noreferrer nofollow"
+          >De Jong</a
+        >
+        attractors.
       </p>
 
-      <input type="submit" value="Generate" />
-    </form>
+      <form action="./grid/" id="attractor-config">
+        <p>
+          Attractors size (px):
+          <input type="number" name="size" value="300" /><br />
+        </p>
+        <p>
+          Points per attractor:<input
+            type="number"
+            name="points"
+            value="7000"
+          /><br />
+        </p>
+        <p>
+          Equations:
+          <select name="equations" id="attractor-equation">
+            <option value="Clifford">Clifford</option>
+            <option value="DeJong">De Jong</option>
+          </select>
+        </p>
+
+        <p>
+          <div id="attractor-equation-definition">
+            x<sub>n+1</sub> = sin(a * y<sub>n</sub>) + c * cos(a *
+            x<sub>n</sub>)<br />
+            y<sub>n+1</sub> = sin(b * x<sub>n</sub>) + d * cos(b *
+            y<sub>n</sub>)
+          </div>
+          <br />
+          <br />
+          <code>a</code>, <code>b</code>, <code>c</code>, and
+          <code>d</code>
+          will be generated randomly with values between -2 and 2.
+        </p>
+
+        <input type="submit" value="Generate ->" />
+      </form>
+    </div>
   </body>
 
   <script>

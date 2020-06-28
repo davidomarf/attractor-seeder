@@ -6,8 +6,10 @@ document.title = `${
   query.equations.charAt(0).toUpperCase() + query.equations.slice(1)
 } Attractors`;
 
+const canvasesContainer = document.getElementById("canvases-container");
+
 // Create the instructions to build the canvases grid
-let canvasBuilder = getCanvasBuilder(query);
+let canvasBuilder = getCanvasBuilder(query, canvasesContainer);
 
 // Specify the size of the canvas
 let canvasSize = query.size;
@@ -39,7 +41,7 @@ for (let i = 0; i < canvasBuilder.rows; i++) {
   canvases.push([]);
   let div = document.createElement("div");
   div.className = "canvas-row";
-  document.body.appendChild(div);
+  canvasesContainer.appendChild(div);
 
   for (let j = 0; j < canvasBuilder.cols; j++) {
     let cellDiv = createCellDivElement(i, j);
@@ -89,74 +91,23 @@ function createCellDivElement(i, j) {
 
   cellControllerText.innerHTML = `
     <div class="attractor-variables">
-    
-    <div class="attractor-variable-controller">
-      <div class="attractor-variable">
-        a =
-      </div>
-      <div class="value-controller">
-        <div class="current-value" id="a-value" value = ${a}>
-          ${a < 0 ? a.toFixed(7) : a.toFixed(8)}
+    ${[a, b, c, d].reduce((acc, cur, i) => {
+      const key = ["a", "b", "c", "d"][i];
+      return (
+        acc +
+        `<div class="attractor-variable-controller">
+        <div class="attractor-variable">
+          ${key} =&nbsp;${cur > 0 ? "&nbsp" : ""}
         </div>
-        <div class="decrease-value">
-          <i class="fas fa-arrow-down button"></i>
+        <div class="value-controller">
+          <div class="current-value" id="${key}-value" value = ${cur}>
+            ${cur.toFixed(8)}
+          </div>
         </div>
-        <div class="increase-value">
-          <i class="fas fa-arrow-up button"></i>
-        </div>
-      </div>
-    </div>
+      </div>`
+      );
+    }, "")}
 
-    <div class="attractor-variable-controller">
-      <div class="attractor-variable">
-        b =
-      </div>
-      <div class="value-controller">
-        <div class="current-value" id="b-value" value = ${b}>
-          ${b < 0 ? b.toFixed(7) : b.toFixed(8)}
-        </div>
-        <div class="decrease-value">
-          <i class="fas fa-arrow-down button"></i>
-        </div>
-        <div class="increase-value">
-          <i class="fas fa-arrow-up button"></i>
-        </div>
-      </div>
-    </div>
-  
-    <div class="attractor-variable-controller">
-      <div class="attractor-variable">
-        c =
-      </div>
-      <div class="value-controller">
-        <div class="current-value" id="c-value" value = ${c}>
-          ${c < 0 ? c.toFixed(7) : c.toFixed(8)}
-        </div>
-        <div class="decrease-value">
-          <i class="fas fa-arrow-down button"></i>
-        </div>
-        <div class="increase-value">
-          <i class="fas fa-arrow-up button"></i>
-        </div>
-      </div>
-    </div>
-
-    <div class="attractor-variable-controller">
-      <div class="attractor-variable">
-        d =
-      </div>
-      <div class="value-controller">
-        <div class="current-value" id="d-value" value = ${d}>
-          ${d < 0 ? d.toFixed(7) : d.toFixed(8)}
-        </div>
-        <div class="decrease-value">
-          <i class="fas fa-arrow-down button"></i>
-        </div>
-        <div class="increase-value">
-          <i class="fas fa-arrow-up button"></i>
-        </div>
-      </div>
-    </div>
     </div>
 
     <div class="buttons">
@@ -186,12 +137,6 @@ function createAttractorVariableController(title, value) {
   valueController.innerHTML = `
     <div class="current-value" id="c-value" value = ${value}>
           ${c < 0 ? value.toFixed(7) : value.toFixed(8)}
-        </div>
-        <div class="decrease-value">
-          <i class="fas fa-arrow-down button"></i>
-        </div>
-        <div class="increase-value">
-          <i class="fas fa-arrow-up button"></i>
         </div>`;
 
   attractorVariableController.appendChild(attractorVariable);
@@ -303,24 +248,24 @@ function getQueryParams(qs) {
  * @return {Object}       Contains the number of cols, rows, and margins
  *                        between them.
  */
-function getCanvasBuilder(info) {
+function getCanvasBuilder(info, container) {
   // Default at 300 if not size provided
   let canvasSize = info.size ? info.size : 300;
 
   // Calculate the number of rows and cols using width and height of window
   let canvasBuilder = {
-    cols: Math.floor(window.innerWidth / canvasSize),
-    rows: Math.floor(window.innerHeight / canvasSize)
+    cols: Math.floor(container.clientWidth / canvasSize),
+    rows: Math.floor(container.clientHeight / canvasSize)
   };
 
   // Calculate the space between columns and rows
   canvasBuilder.colsMargin = Math.round(
-    (window.innerWidth % canvasSize) / (canvasBuilder.cols + 1)
+    (container.clientWidth % canvasSize) / (canvasBuilder.cols + 1)
   );
   canvasBuilder.rowsMargin = Math.round(
-    (window.innerHeight % canvasSize) / (canvasBuilder.rows + 1)
+    (container.clientHeight % canvasSize) / (canvasBuilder.rows + 1)
   );
-
+  console.log(canvasBuilder);
   return canvasBuilder;
 }
 
@@ -348,7 +293,7 @@ function copyValues(canvas) {
   // Set non-editable to avoid focus and move outside of view
   el.setAttribute("readonly", "");
   el.style = { position: "absolute", left: "-9999px" };
-  document.body.appendChild(el);
+  canvasesContainer.appendChild(el);
 
   // Select text inside element
   el.select();
@@ -357,7 +302,7 @@ function copyValues(canvas) {
   document.execCommand("copy");
 
   // Remove temporary element
-  document.body.removeChild(el);
+  canvasesContainer.removeChild(el);
 }
 
 /**

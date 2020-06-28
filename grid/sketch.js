@@ -27,7 +27,7 @@ function drawCanvases() {
           square.id(`canvas-${i}-${j}`);
           p.noLoop();
 
-          p.background(235);
+          p.background(255);
           p.stroke("rgba(0, 0, 0, .4)");
           p.noFill();
         };
