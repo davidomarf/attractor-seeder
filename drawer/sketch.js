@@ -5,7 +5,7 @@ query = getDefaultsForEmptyFields(query);
 // Set the title of the page
 document.title = `${numberify(query.points)} points ${
   query.equations.charAt(0).toUpperCase() + query.equations.slice(1)
-} Attractor`;
+} attractor`;
 
 function numberify(n) {
   const commas = Math.floor(Math.log10(n) / 3);
