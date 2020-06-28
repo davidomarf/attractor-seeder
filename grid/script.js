@@ -1,6 +1,9 @@
 // Read the URL params
 let query = getQueryParams(document.location.search);
 
+// Set the title of the page
+document.title = `${query.equations} Attractors`
+
 // Create the instructions to build the canvases grid
 let canvasBuilder = getCanvasBuilder(query);
 
