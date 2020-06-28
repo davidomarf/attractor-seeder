@@ -2,6 +2,28 @@
 let query = getQueryParams(document.location.search);
 query = getDefaultsForEmptyFields(query);
 
+// Set the title of the page
+document.title = `${numberify(query.points)} points ${
+  query.equations.charAt(0).toUpperCase() + query.equations.slice(1)
+} Attractor`;
+
+function numberify(n) {
+  const commas = Math.floor(Math.log10(n) / 3);
+  const str = String(n / Math.pow(1000, commas));
+  switch (commas) {
+    case 0:
+      return str;
+    case 1:
+      return str + "K";
+    case 2:
+      return str + "M";
+    case 3:
+      return str + "T";
+    case 4:
+      return str + "Q";
+  }
+}
+
 function getDefaultsForEmptyFields(query) {
   if (!query.equations)
     query.equations = Math.random() > 0.5 ? "clifford" : "dejong";

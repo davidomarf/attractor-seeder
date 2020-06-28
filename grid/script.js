@@ -2,7 +2,9 @@
 let query = getQueryParams(document.location.search);
 
 // Set the title of the page
-document.title = `${query.equations} Attractors`
+document.title = `${
+  query.equations.charAt(0).toUpperCase() + query.equations.slice(1)
+} Attractors`;
 
 // Create the instructions to build the canvases grid
 let canvasBuilder = getCanvasBuilder(query);
@@ -332,10 +334,8 @@ function getCanvasBuilder(info) {
 function copyValues(canvas) {
   canvas = document.getElementById(canvas);
   let values = canvas.getAttribute("attractor-values");
-  values = values.split(",").map(e => Number(e));
-  let str = `a = ${values[0]}, b = ${values[1]}, c = ${values[2]}, d = ${
-    values[3]
-  }`;
+  values = values.split(",").map((e) => Number(e));
+  let str = `a = ${values[0]}, b = ${values[1]}, c = ${values[2]}, d = ${values[3]}`;
   console.log(
     `a = ${values[0]}, b = ${values[1]}, c = ${values[2]}, d = ${values[3]}`
   );
